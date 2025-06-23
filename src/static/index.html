@@ -47,18 +47,19 @@
 
     <script src="app.js"></script>
     <script>
-      // Render activities with participants section
+      // Render activities with participants section and availability
       function renderActivities(activities) {
         const activitiesList = document.getElementById('activities-list');
         activitiesList.innerHTML = '';
         Object.entries(activities).forEach(([name, info]) => {
+          const spotsLeft = info.max_participants - (info.participants ? info.participants.length : 0);
           const card = document.createElement('div');
           card.className = 'activity-card';
           card.innerHTML = `
             <h4>${name}</h4>
             <p><strong>Description:</strong> ${info.description}</p>
             <p><strong>Schedule:</strong> ${info.schedule}</p>
-            <p><strong>Max Participants:</strong> ${info.max_participants}</p>
+            <p><strong>Availability:</strong> ${spotsLeft} spot${spotsLeft === 1 ? '' : 's'} left</p>
             <div class="participants-section">
               <strong>Participants:</strong>
               <ul class="participants-list">
